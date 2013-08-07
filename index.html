@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>index</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Anthony Dry" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Aguafina+Script' rel='stylesheet' type='text/css'>
+		<script src="//js.leapmotion.com/0.2.0-beta6/leap.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div>
+			<header>
+				<img src="big_logo.png"/>
+				<h1>ROCK-PAPER-SCISSORS</h1>
+			</header>
+			<div class="content"></div>
+			<div id="LightEffect1"></div>
+			<div id="LightEffect2"></div>
+			<div id="LightEffect3"></div>
+			<div id="LEAP">
+			<div id="leapVector-top"></div>
+			<div id="leapVector-side"></div>
+			<div id="leapVector-bottom"><div id="leapVector-light"></div></div>
+			<footer>
+				<p class="foot">
+					By Anthony Dry
+				</p>
+			</footer>
+			</div>
+			
+		</div>
+		
+		<!-- TEMPLATES -->
+		<script type="text/x-mustache-template" id="index-view-template">
+  			<h2 id="textbox" class="shake">Place hand over controller to start!</h2>
+		</script>
+		
+		<script type="text/x-mustache-template" id="start-view-template">
+  			<h2 id="textbox" class="shake">{{{gameText}}}</h2>
+  			<!--
+  				Will implement in the future right know i have bigger problems.
+  				<div id="player1">
+  				<p class="names">{{playerName1}}</p>
+  				<p>{{playerScore1}}</p>				
+  			</div>
+  			<div id="player2">
+  				<p class="names">{{playerName2}}</p>
+  				<p>{{playerScore2}}</p>				
+  			</div>-->
+		</script>
+		
+		<script type="text/x-mustache-template" id="noleap-view-template">
+  			<h2 id="textbox" class="shake">This applications require an active leap motion</h2>
+		</script>
+		
+		<script type="text/javascript" src="js/lib/underscore.js"></script>
+        <script type="text/javascript" src="js/lib/backbone.js"></script>
+        <script type="text/javascript" src="js/lib/mustache.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script>
+	$(document).ready(function() {
+		$(function() { Game.boot($('.content')); });
+			 $(document).on("click", "a:not([data-bypass])", function(evt) {
+			    // Get the anchor href and protcol
+			    var href = $(this).attr("href");
+			    var protocol = this.protocol + "//";
+			
+			    // Ensure the protocol is not part of URL, meaning its relative.
+			    if (href && href.slice(0, protocol.length) !== protocol &&
+			        href.indexOf("javascript:") !== 0) {
+			      // Stop the default event to ensure the link will not cause a page
+			      // refresh.
+			      evt.preventDefault();
+			
+			      // `Backbone.history.navigate` is sufficient for all Routers and will
+			      // trigger the correct events.  The Router's internal `navigate` method
+			      // calls this anyways.
+			      Backbone.history.navigate(href, true);
+			    }
+			    if(controller.port == null || controller.port == "")
+      			{
+          			Backbone.history.navigate("noleap", true);
+       			}
+  		});
+		
+		
+      	
+      	//solve this problem im getting really confused right now.
+      		
+				
+	});
+	</script>
+	</body>
+	
+</html>
